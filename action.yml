@@ -1,0 +1,22 @@
+name: agentsmd
+description: Audit AI coding-agent instruction files without dependencies or outbound calls.
+author: agentsmd-action contributors
+branding:
+  icon: file-text
+  color: purple
+inputs:
+  path:
+    description: Repository path to scan.
+    required: false
+    default: .
+  fail-on:
+    description: Lowest severity that fails the check: high, medium, low or none.
+    required: false
+    default: high
+runs:
+  using: composite
+  steps:
+    - name: Run agentsmd audit
+      shell: bash
+      run: python3 "$GITHUB_ACTION_PATH/scripts/agentsmd_action.py" "${{ inputs.path }}" --fail-on "${{ inputs.fail-on }}"
+
